@@ -11,6 +11,7 @@ export default function Cart({ onUpdateItemQuantity }) {
   const formattedTotalPrice = `$${totalPrice.toFixed(2)}`;
 
   return (
+    // a more legacy way to consume context is with CartContext.Consumer, not implemented below
     <div id="cart">
       {items.length === 0 && <p>No items in cart!</p>}
       {items.length > 0 && (
