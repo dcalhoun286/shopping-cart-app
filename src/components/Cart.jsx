@@ -1,10 +1,10 @@
 import { useContext } from "react";
 import { CartContext } from "../store/shopping-cart-context";
 
-export default function Cart({ onUpdateItemQuantity }) {
-  const { items } = useContext(CartContext);
+export default function Cart() {
+  const { shoppingCart, handleUpdateCartItemQuantity } = useContext(CartContext);
 
-  const totalPrice = items.reduce(
+  const totalPrice = shoppingCart.items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
   );
@@ -13,10 +13,10 @@ export default function Cart({ onUpdateItemQuantity }) {
   return (
     // a more legacy way to consume context is with CartContext.Consumer, not implemented below
     <div id="cart">
-      {items.length === 0 && <p>No items in cart!</p>}
-      {items.length > 0 && (
+      {shoppingCart.items.length === 0 && <p>No items in cart!</p>}
+      {shoppingCart.items.length > 0 && (
         <ul id="cart-items">
-          {items.map((item) => {
+          {shoppingCart.items.map((item) => {
             const formattedPrice = `$${item.price.toFixed(2)}`;
 
             return (
@@ -26,11 +26,11 @@ export default function Cart({ onUpdateItemQuantity }) {
                   <span> ({formattedPrice})</span>
                 </div>
                 <div className="cart-item-actions">
-                  <button onClick={() => onUpdateItemQuantity(item.id, -1)}>
+                  <button onClick={() => handleUpdateCartItemQuantity(item.id, -1)}>
                     -
                   </button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => onUpdateItemQuantity(item.id, 1)}>
+                  <button onClick={() => handleUpdateCartItemQuantity(item.id, 1)}>
                     +
                   </button>
                 </div>
