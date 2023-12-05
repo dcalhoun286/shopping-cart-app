@@ -8,7 +8,10 @@ export default function Header() {
 
   const modal = useRef();
 
-  const cartQuantity = shoppingCart.items.length;
+  const cartQuantity = shoppingCart.items.reduce((acc, val) => {
+    acc = acc + val.quantity;
+    return acc;
+  }, 0);
 
   function handleOpenCartClick() {
     modal.current.open();
